@@ -112,8 +112,16 @@
             </h2>
           </div>
           <div>
-            <a href="#" class="btn btn-primary me-2 px-5 py-2">Join Now</a>
-            <a href="#" class="btn btn-light ms-2 px-5 py-2"> Explore</a>
+            <!-- දැනට තියෙන Join Now බටන් එකට මේ Attributes දෙක එකතු කරන්න -->
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#authModal"
+            >
+              Join Now
+            </button>
+            <!-- ඔයාගේ index.html එකේ තියෙන Explore බටන් එක මේ විදිහට වෙනස් කරන්න -->
+            <a href="explore.html" class="btn btn-primary"> Explore </a>
           </div>
         </div>
       </div>
@@ -206,39 +214,75 @@
 
     <!---forum welcome section end--->
     <!-- Sign In & Welcome Modal -->
-<div class="modal fade" id="authModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div
+      class="modal fade"
+      id="authModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-dark">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Sign In</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- 1. පුරවන්න තියෙන Form එක -->
-                <form id="signInForm">
-                    <div class="mb-3">
-                        <label for="usernameInput" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="usernameInput" required placeholder="Enter your username">
-                    </div>
-                    <div class="mb-3">
-                        <label for="gmailInput" class="form-label">Gmail Address</label>
-                        <input type="email" class="form-control" id="gmailInput" required placeholder="example@gmail.com">
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
-                </form>
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Sign In</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 1. පුරවන්න තියෙන Form එක -->
+            <form id="signInForm">
+              <div class="mb-3">
+                <label for="usernameInput" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="usernameInput"
+                  required
+                  placeholder="Enter your username"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="gmailInput" class="form-label">Gmail Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="gmailInput"
+                  required
+                  placeholder="example@gmail.com"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Sign In
+              </button>
+            </form>
 
-                <!-- 2. සාර්ථක වුණාම පේන Welcome Area එක (මුලින්ම මේක හැංගිලා තියෙන්නේ) -->
-                <div id="welcomeArea" class="text-center d-none py-3">
-                    <h3 class="text-success mb-3" id="welcomeHeading">Welcome to World Web, [Username]!</h3>
-                    <p class="text-muted">
-                        We are absolutely thrilled to have you here. Explore our digital world, discover amazing features, and enjoy a seamless browsing experience tailored just for you!
-                    </p>
-                    <button type="button" class="btn btn-primary mt-3 w-100" data-bs-dismiss="modal">Go To Home Page</button>
-                </div>
+            <!-- 2. සාර්ථක වුණාම පේන Welcome Area එක (මුලින්ම මේක හැංගිලා තියෙන්නේ) -->
+            <div id="welcomeArea" class="text-center d-none py-3">
+              <h3 class="text-success mb-3" id="welcomeHeading">
+                Welcome to World Web, [Username]!
+              </h3>
+              <p class="text-muted">
+                We are absolutely thrilled to have you here. Explore our digital
+                world, discover amazing features, and enjoy a seamless browsing
+                experience tailored just for you!
+              </p>
+              <button
+                type="button"
+                class="btn btn-primary mt-3 w-100"
+                data-bs-dismiss="modal"
+              >
+                Go To Home Page
+              </button>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
     <!---forum welcome section end--->
 
     <!---javascript link--->

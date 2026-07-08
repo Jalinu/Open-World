@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Web Development - World Web</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #0f172a;
+        color: #f8fafc;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .course-card {
+        background: rgba(30, 41, 59, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+        border-radius: 16px;
+      }
+      .course-card:hover {
+        transform: translateY(-10px);
+        border-color: #38bdf8;
+        box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+      }
+      .icon-box {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+      .html-icon {
+        background: rgba(234, 88, 12, 0.2);
+        color: #ea580c;
+      }
+      .css-icon {
+        background: rgba(37, 99, 235, 0.2);
+        color: #2563eb;
+      }
+      .js-icon {
+        background: rgba(202, 138, 4, 0.2);
+        color: #ca8a04;
+      }
+      .bs-icon {
+        background: rgba(147, 51, 234, 0.2);
+        color: #9333ea;
+      }
+      .jq-icon {
+        background: rgba(6, 182, 212, 0.2);
+        color: #06b6d4;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <div class="container text-center py-5">
+      <span class="badge bg-info text-dark mb-2 px-3 py-2 fw-bold rounded-pill"
+        >START YOUR JOURNEY</span
+      >
+      <h1 class="display-4 fw-bold mb-3">Master the Modern Web</h1>
+      <p class="text-muted mx-auto" style="max-width: 600px">
+        Dive into the essential technologies required to build stunning,
+        interactive, and responsive websites from scratch.
+      </p>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="container pb-5">
+      <div class="row g-4 justify-content-center">
+        <!-- HTML Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 p-4 text-white">
+            <div class="icon-box html-icon">
+              <i class="bi bi-filetype-html"></i>
+            </div>
+            <h3>HTML5</h3>
+            <p class="text-muted">
+              The blueprint of the web. Learn how to structure web pages using
+              modern semantic elements.
+            </p>
+            <a
+              href="#"
+              class="btn btn-outline-orange mt-auto text-warning border-warning"
+              >Explore HTML <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- CSS Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 p-4 text-white">
+            <div class="icon-box css-icon">
+              <i class="bi bi-filetype-css"></i>
+            </div>
+            <h3>CSS3</h3>
+            <p class="text-muted">
+              The style framework. Bring your blueprints to life with beautiful
+              colors, layouts, grids, and custom animations.
+            </p>
+            <a
+              href="#"
+              class="btn btn-outline-primary mt-auto text-primary border-primary"
+              >Explore CSS <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- JavaScript Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 p-4 text-white">
+            <div class="icon-box js-icon">
+              <i class="bi bi-filetype-js"></i>
+            </div>
+            <h3>JavaScript</h3>
+            <p class="text-muted">
+              The engine. Transform static websites into dynamic and highly
+              interactive web applications.
+            </p>
+            <a
+              href="#"
+              class="btn btn-outline-warning mt-auto text-warning border-warning"
+              >Explore JS <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Bootstrap Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 p-4 text-white">
+            <div class="icon-box bs-icon"><i class="bi bi-bootstrap"></i></div>
+            <h3>Bootstrap 5</h3>
+            <p class="text-muted">
+              The responsive kit. Build ultra-fast, mobile-friendly websites
+              quickly using ready-made CSS components.
+            </p>
+            <a
+              href="#"
+              class="btn btn-outline-info mt-auto text-info border-info"
+              >Explore Bootstrap <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- jQuery Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 p-4 text-white">
+            <div class="icon-box jq-icon"><i class="bi bi-code-slash"></i></div>
+            <h3>jQuery</h3>
+            <p class="text-muted">
+              Write less, do more. Learn how to simplify standard JavaScript DOM
+              manipulations and event handles easily.
+            </p>
+            <a
+              href="#"
+              class="btn btn-outline-cyan mt-auto text-info border-info"
+              >Explore jQuery <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Home Button -->
+      <div class="text-center mt-5">
+        <a href="index.html" class="btn btn-secondary px-4 py-2"
+          ><i class="bi bi-arrow-left"></i> Back to Home Page</a
+        >
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
