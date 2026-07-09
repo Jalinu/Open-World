@@ -184,3 +184,26 @@ function restartQuiz() {
 }
 
 loadQuiz();
+// --- BACK TO TOP BUTTON LOGIC ---
+
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// Show the button when the user scrolls down 300px from the top
+window.onscroll = function () {
+  if (
+    document.body.scrollTop > 300 ||
+    document.documentElement.scrollTop > 300
+  ) {
+    backToTopBtn.classList.remove("d-none"); // Show button
+  } else {
+    backToTopBtn.classList.add("d-none"); // Hide button
+  }
+};
+
+// Scroll to the top of the page smoothly when the button is clicked
+backToTopBtn.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
