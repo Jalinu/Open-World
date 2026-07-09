@@ -36,34 +36,151 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
   // --- Sign In Form & Welcome Message Logic ---
-    const signInForm = document.getElementById('signInForm');
-    const welcomeArea = document.getElementById('welcomeArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const welcomeHeading = document.getElementById('welcomeHeading');
-    const usernameInput = document.getElementById('usernameInput');
-    const navSignInBtn = document.getElementById('navSignInBtn');
+  const signInForm = document.getElementById("signInForm");
+  const welcomeArea = document.getElementById("welcomeArea");
+  const modalTitle = document.getElementById("modalTitle");
+  const welcomeHeading = document.getElementById("welcomeHeading");
+  const usernameInput = document.getElementById("usernameInput");
+  const navSignInBtn = document.getElementById("navSignInBtn");
 
-    if (signInForm) {
-        signInForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // පිටුව රීෆ්‍රෙෂ් වෙන එක නවත්වනවා
+  if (signInForm) {
+    signInForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-            const username = usernameInput.value; // යූසර් ගහපු නම ගන්නවා
+      const username = usernameInput.value;
 
-            // 1. Form එක හංගනවා
-            signInForm.classList.add('d-none');
-            modalTitle.classList.add('d-none'); // උඩ තියෙන "Sign In" මාතෘකාවත් හංගනවා
+      signInForm.classList.add("d-none");
+      modalTitle.classList.add("d-none");
 
-            // 2. Welcome මැසේජ් එකට නම එකතු කරනවා
-            welcomeHeading.textContent = `Welcome to World Web, ${username}!`;
+      welcomeHeading.textContent = `Welcome to World Web, ${username}!`;
 
-            // 3. Welcome Area එක පෙන්වනවා
-            welcomeArea.classList.remove('d-none');
+      welcomeArea.classList.remove("d-none");
 
-            // 4. (Optional) Navbar එකේ තියෙන Sign In බටන් එක "Hi, [Name]" විදිහට වෙනස් කරනවා
-            if (navSignInBtn) {
-                navSignInBtn.textContent = `Hi, ${username}`;
-                navSignInBtn.disabled = true; // ආයේ ක්ලික් කරන්න බැරි වෙන්න දානවා
-            }
-        });
-    }
+      if (navSignInBtn) {
+        navSignInBtn.className = "nav-link text-white fw-bold d-inline-block";
+
+        navSignInBtn.textContent = `Hi, ${username}`;
+
+        navSignInBtn.style.cursor = "default";
+        navSignInBtn.removeAttribute("data-bs-toggle");
+        navSignInBtn.removeAttribute("data-bs-target");
+      }
+    });
+  }
 });
+document.getElementById("signInForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const username = document.getElementById("usernameInput").value;
+
+  document.getElementById("welcomeHeading").innerText =
+    `Welcome to World Web, ${username}!`;
+
+  document.getElementById("signInForm").classList.add("d-none");
+  document.getElementById("welcomeArea").classList.remove("d-none");
+
+  const signInBtn = document.getElementById("navSignInBtn");
+  signInBtn.innerHTML = `<i class="ri-user-line"></i> Hi, ${username}`;
+  signInBtn.classList.remove("btn-primary");
+  signInBtn.classList.add("btn-outline-warning");
+  signInBtn.disabled = true;
+});
+// --- QUIZ GAME CODE ---
+const quizData = [
+  {
+    question: "What does HTML stand for?",
+    options: [
+      "Hyper Text Markup Language",
+      "Home Tool Markup Language",
+      "Hyperlinks and Text Markup Language",
+    ],
+    correct: 0,
+  },
+  {
+    question: "Which Bootstrap class is used to create a responsive grid row?",
+    options: ["container", "row", "col-md-12"],
+    correct: 1,
+  },
+  {
+    question: "Which tag is used to link an external CSS file?",
+    options: ["<script>", "<style>", "<link>"],
+    correct: 2,
+  },
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuiz() {
+  const qElement = document.getElementById("quiz-question");
+  const optionsContainer = document.getElementById("quiz-options");
+  const nextBtn = document.getElementById("next-quiz-btn");
+
+  optionsContainer.innerHTML = "";
+  nextBtn.classList.add("d-none");
+
+  qElement.innerText = quizData[currentQuestion].question;
+
+  quizData[currentQuestion].options.forEach((option, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = option;
+    btn.classList.add(
+      "btn",
+      "btn-outline-primary",
+      "text-white",
+      "py-2",
+      "my-1",
+    );
+    btn.onclick = () => checkAnswer(index, btn);
+    optionsContainer.appendChild(btn);
+  });
+}
+
+function checkAnswer(selectedIndex, clickedBtn) {
+  const correctIndex = quizData[currentQuestion].correct;
+  const allButtons = document.getElementById("quiz-options").children;
+
+  for (let btn of allButtons) {
+    btn.disabled = true;
+  }
+
+  if (selectedIndex === correctIndex) {
+    clickedBtn.classList.replace("btn-outline-primary", "btn-success"); // නිවැරදි නම් කොළ පාට
+    score++;
+  } else {
+    clickedBtn.classList.replace("btn-outline-primary", "btn-danger"); // වැරදි නම් රතු පාට
+    allButtons[correctIndex].classList.replace(
+      "btn-outline-primary",
+      "btn-success",
+    ); // නිවැරදි එක කොළ පාට කර පෙන්වයි
+  }
+
+  document.getElementById("next-quiz-btn").classList.remove("d-none");
+}
+
+document.getElementById("next-quiz-btn").onclick = () => {
+  currentQuestion++;
+  if (currentQuestion < quizData.length) {
+    loadQuiz();
+  } else {
+    document.getElementById("quiz-question").classList.add("d-none");
+    document.getElementById("quiz-options").classList.add("d-none");
+    document.getElementById("next-quiz-btn").classList.add("d-none");
+
+    const resultDiv = document.getElementById("quiz-result");
+    resultDiv.classList.remove("d-none");
+    document.getElementById("quiz-score").innerText =
+      `You scored ${score} out of ${quizData.length}!`;
+  }
+};
+
+function restartQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  document.getElementById("quiz-question").classList.remove("d-none");
+  document.getElementById("quiz-options").classList.remove("d-none");
+  document.getElementById("quiz-result").classList.add("d-none");
+  loadQuiz();
+}
+
+loadQuiz();

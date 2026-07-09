@@ -235,7 +235,38 @@
       </a>
     </section>
     <!---Services section end--->
+    <!---Quiz Section Start--->
+    <section
+      id="quiz-section"
+      class="container my-5 py-4 text-white rounded bg-dark border border-secondary"
+    >
+      <div class="row">
+        <div class="col-md-12 text-center mb-4">
+          <h2 class="fw-bold text-warning">
+            <i class="ri-question-answer-line"></i> Quick Web Quiz
+          </h2>
+          <p class="text-muted">Test your web development knowledge!</p>
+        </div>
+        <div class="col-md-8 mx-auto text-center">
+          <h4 id="quiz-question" class="mb-4">Loading Question...</h4>
 
+          <div id="quiz-options" class="d-grid gap-2 col-lg-8 mx-auto"></div>
+
+          <button id="next-quiz-btn" class="btn btn-warning mt-4 d-none">
+            Next Question <i class="ri-arrow-right-line"></i>
+          </button>
+
+          <div id="quiz-result" class="mt-4 d-none">
+            <h3 class="text-success fw-bold">Quiz Completed!</h3>
+            <p id="quiz-score" class="lead"></p>
+            <button onclick="restartQuiz()" class="btn btn-outline-light">
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!---Quiz Section End--->
     <!---Contact Us & Footer section start--->
     <footer
       id="contact-section"
