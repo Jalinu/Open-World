@@ -150,32 +150,4 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
-
-  // --- DARK / LIGHT MODE LOGIC ---
-  const themeToggleBtn = document.getElementById("themeToggleBtn");
-  const themeIcon = document.getElementById("themeIcon");
-  const htmlTag = document.documentElement;
-
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  htmlTag.setAttribute("data-bs-theme", savedTheme);
-  updateToggleIcon(savedTheme);
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-      const currentTheme = htmlTag.getAttribute("data-bs-theme");
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-      htmlTag.setAttribute("data-bs-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
-      updateToggleIcon(newTheme);
-    });
-  }
-
-  function updateToggleIcon(theme) {
-    if (!themeIcon) return;
-    if (theme === "light") {
-      themeIcon.className = "ri-moon-line";
-    } else {
-      themeIcon.className = "ri-sun-line";
-    }
-  }
 });
