@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Text Animations ---
   const title = document.querySelector("h1");
-
   if (title) {
     title.style.opacity = "0";
     title.style.transform = "translateY(-30px)";
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const button = document.querySelector(".btn-primary");
-
   if (button) {
     button.style.opacity = "0";
     button.style.transform = "scale(0.8)";
@@ -35,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.style.transform = "scale(1)";
     }, 100);
   }
+
   // --- Sign In Form & Welcome Message Logic ---
   const signInForm = document.getElementById("signInForm");
   const welcomeArea = document.getElementById("welcomeArea");
@@ -46,164 +46,147 @@ document.addEventListener("DOMContentLoaded", () => {
   if (signInForm) {
     signInForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
       const username = usernameInput.value;
 
       signInForm.classList.add("d-none");
-      modalTitle.classList.add("d-none");
+      if (modalTitle) modalTitle.classList.add("d-none");
 
       welcomeHeading.textContent = `Welcome to World Web, ${username}!`;
-
       welcomeArea.classList.remove("d-none");
 
       if (navSignInBtn) {
         navSignInBtn.className = "nav-link text-white fw-bold d-inline-block";
-
-        navSignInBtn.textContent = `Hi, ${username}`;
-
+        navSignInBtn.innerHTML = `<i class="ri-user-line"></i> Hi, ${username}`;
         navSignInBtn.style.cursor = "default";
         navSignInBtn.removeAttribute("data-bs-toggle");
         navSignInBtn.removeAttribute("data-bs-target");
       }
     });
   }
-});
-document.getElementById("signInForm").addEventListener("submit", function (e) {
-  e.preventDefault();
 
-  const username = document.getElementById("usernameInput").value;
+  // --- QUIZ GAME CODE WITH SAFETY CHECKS ---
+  const quizData = [
+    {
+      question: "What does HTML stand for?",
+      options: [
+        "Hyper Text Markup Language",
+        "Home Tool Markup Language",
+        "Hyperlinks and Text Markup Language",
+      ],
+      correct: 0,
+    },
+    {
+      question:
+        "Which Bootstrap class is used to create a responsive grid row?",
+      options: ["container", "row", "col-md-12"],
+      correct: 1,
+    },
+    {
+      question: "Which tag is used to link an external CSS file?",
+      options: ["<script>", "<style>", "<link>"],
+      correct: 2,
+    },
+  ];
 
-  document.getElementById("welcomeHeading").innerText =
-    `Welcome to World Web, ${username}!`;
+  let currentQuestion = 0;
+  let score = 0;
 
-  document.getElementById("signInForm").classList.add("d-none");
-  document.getElementById("welcomeArea").classList.remove("d-none");
-
-  const signInBtn = document.getElementById("navSignInBtn");
-  signInBtn.innerHTML = `<i class="ri-user-line"></i> Hi, ${username}`;
-  signInBtn.classList.remove("btn-primary");
-  signInBtn.classList.add("btn-outline-warning");
-  signInBtn.disabled = true;
-});
-// --- QUIZ GAME CODE ---
-const quizData = [
-  {
-    question: "What does HTML stand for?",
-    options: [
-      "Hyper Text Markup Language",
-      "Home Tool Markup Language",
-      "Hyperlinks and Text Markup Language",
-    ],
-    correct: 0,
-  },
-  {
-    question: "Which Bootstrap class is used to create a responsive grid row?",
-    options: ["container", "row", "col-md-12"],
-    correct: 1,
-  },
-  {
-    question: "Which tag is used to link an external CSS file?",
-    options: ["<script>", "<style>", "<link>"],
-    correct: 2,
-  },
-];
-
-let currentQuestion = 0;
-let score = 0;
-
-function loadQuiz() {
+  // Check if quiz elements exist on the current page before running quiz logic
   const qElement = document.getElementById("quiz-question");
   const optionsContainer = document.getElementById("quiz-options");
   const nextBtn = document.getElementById("next-quiz-btn");
 
-  optionsContainer.innerHTML = "";
-  nextBtn.classList.add("d-none");
+  if (qElement && optionsContainer && nextBtn) {
+    function loadQuiz() {
+      optionsContainer.innerHTML = "";
+      nextBtn.classList.add("d-none");
+      qElement.innerText = quizData[currentQuestion].question;
 
-  qElement.innerText = quizData[currentQuestion].question;
+      quizData[currentQuestion].options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.classList.add(
+          "btn",
+          "btn-outline-primary",
+          "text-white",
+          "py-2",
+          "my-1",
+        );
+        btn.onclick = () => checkAnswer(index, btn);
+        optionsContainer.appendChild(btn);
+      });
+    }
 
-  quizData[currentQuestion].options.forEach((option, index) => {
-    const btn = document.createElement("button");
-    btn.innerText = option;
-    btn.classList.add(
-      "btn",
-      "btn-outline-primary",
-      "text-white",
-      "py-2",
-      "my-1",
-    );
-    btn.onclick = () => checkAnswer(index, btn);
-    optionsContainer.appendChild(btn);
-  });
-}
+    function checkAnswer(selectedIndex, clickedBtn) {
+      const correctIndex = quizData[currentQuestion].correct;
+      const allButtons = optionsContainer.children;
 
-function checkAnswer(selectedIndex, clickedBtn) {
-  const correctIndex = quizData[currentQuestion].correct;
-  const allButtons = document.getElementById("quiz-options").children;
+      for (let btn of allButtons) {
+        btn.disabled = true;
+      }
 
-  for (let btn of allButtons) {
-    btn.disabled = true;
-  }
+      if (selectedIndex === correctIndex) {
+        clickedBtn.classList.replace("btn-outline-primary", "btn-success");
+        score++;
+      } else {
+        clickedBtn.classList.replace("btn-outline-primary", "btn-danger");
+        allButtons[correctIndex].classList.replace(
+          "btn-outline-primary",
+          "btn-success",
+        );
+      }
+      nextBtn.classList.remove("d-none");
+    }
 
-  if (selectedIndex === correctIndex) {
-    clickedBtn.classList.replace("btn-outline-primary", "btn-success"); // නිවැරදි නම් කොළ පාට
-    score++;
-  } else {
-    clickedBtn.classList.replace("btn-outline-primary", "btn-danger"); // වැරදි නම් රතු පාට
-    allButtons[correctIndex].classList.replace(
-      "btn-outline-primary",
-      "btn-success",
-    ); // නිවැරදි එක කොළ පාට කර පෙන්වයි
-  }
+    nextBtn.onclick = () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuiz();
+      } else {
+        qElement.classList.add("d-none");
+        optionsContainer.classList.add("d-none");
+        nextBtn.classList.add("d-none");
 
-  document.getElementById("next-quiz-btn").classList.remove("d-none");
-}
+        const resultDiv = document.getElementById("quiz-result");
+        if (resultDiv) resultDiv.classList.remove("d-none");
+        document.getElementById("quiz-score").innerText =
+          `You scored ${score} out of ${quizData.length}!`;
+      }
+    };
 
-document.getElementById("next-quiz-btn").onclick = () => {
-  currentQuestion++;
-  if (currentQuestion < quizData.length) {
+    // Global restart function
+    window.restartQuiz = function () {
+      currentQuestion = 0;
+      score = 0;
+      qElement.classList.remove("d-none");
+      optionsContainer.classList.remove("d-none");
+      const resultDiv = document.getElementById("quiz-result");
+      if (resultDiv) resultDiv.classList.add("d-none");
+      loadQuiz();
+    };
+
     loadQuiz();
-  } else {
-    document.getElementById("quiz-question").classList.add("d-none");
-    document.getElementById("quiz-options").classList.add("d-none");
-    document.getElementById("next-quiz-btn").classList.add("d-none");
-
-    const resultDiv = document.getElementById("quiz-result");
-    resultDiv.classList.remove("d-none");
-    document.getElementById("quiz-score").innerText =
-      `You scored ${score} out of ${quizData.length}!`;
   }
-};
 
-function restartQuiz() {
-  currentQuestion = 0;
-  score = 0;
-  document.getElementById("quiz-question").classList.remove("d-none");
-  document.getElementById("quiz-options").classList.remove("d-none");
-  document.getElementById("quiz-result").classList.add("d-none");
-  loadQuiz();
-}
+  // --- BACK TO TOP BUTTON LOGIC FOR HOME PAGE ---
+  const backToTopBtn = document.getElementById("backToTopBtn");
+  if (backToTopBtn) {
+    window.onscroll = function () {
+      if (
+        document.body.scrollTop > 300 ||
+        document.documentElement.scrollTop > 300
+      ) {
+        backToTopBtn.classList.remove("d-none");
+      } else {
+        backToTopBtn.classList.add("d-none");
+      }
+    };
 
-loadQuiz();
-// --- BACK TO TOP BUTTON LOGIC ---
-
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// Show the button when the user scrolls down 300px from the top
-window.onscroll = function () {
-  if (
-    document.body.scrollTop > 300 ||
-    document.documentElement.scrollTop > 300
-  ) {
-    backToTopBtn.classList.remove("d-none"); // Show button
-  } else {
-    backToTopBtn.classList.add("d-none"); // Hide button
+    backToTopBtn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
   }
-};
-
-// Scroll to the top of the page smoothly when the button is clicked
-backToTopBtn.addEventListener("click", function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
 });
