@@ -1,4 +1,5 @@
 /* color, font and variable setup */
+
 :root {
   --c-primary: #975af9;
   --c-secondary: #46a7f8;
@@ -7,9 +8,22 @@
   --c-black: #000000;
   --font-base: "Poppins", sans-serif;
 }
+html {
+    scroll-behavior: smooth;
+}
+/* Custom styling to make the button look perfectly circular and clean */
+#backToTopBtn {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Zoom effect when hovering over the button */
+#backToTopBtn:hover {
+  transform: scale(1.1);
+}
+
 
 html, body {
-  background-color: #000000 !important;
   font-family: var(--font-base);
   font-size: 16px;
   line-height: 1.6;
@@ -45,11 +59,12 @@ img {
   height: auto;
 }
 
+/* ⚠️ REMOVED fixed light color from here so the text automatically 
+   adapts and stays readable when switching themes. */
 .brand-title-light {
   font-size: 55px;
   font-weight: 650;
   font-family: var(--font-base);
-  color: var(--c-background);
 }
 
 .brand-p-2 {
@@ -83,9 +98,10 @@ img {
   font-weight: 500;
 }
 
+
 .navbar-dark {
-  background-color: var(--c-black);
-}
+   background-color: var(--c-black) !important; 
+  } 
 
 /* hero css setup*/
 #Hero {

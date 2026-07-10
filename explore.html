@@ -23,7 +23,7 @@
       body {
         background-color: #0f172a;
         color: #f8fafc;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Segoe UI", sans-serif;
       }
       .course-card {
         background: rgba(30, 41, 59, 0.7);
@@ -71,7 +71,7 @@
   </head>
   <body>
     <!-- navbar section start -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark container">
+    <nav class="navbar navbar-expand-lg navbar-dark container">
       <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand py-2" href="index.html">
@@ -83,7 +83,7 @@
           />
         </a>
 
-        <!-- Three Lines Button (Fixed with Bootstrap 5 Attributes) -->
+        <!-- Hamburger Button -->
         <button
           class="navbar-toggler"
           type="button"
@@ -98,7 +98,7 @@
 
         <!-- Navbar Items -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto text-center">
+          <ul class="navbar-nav ms-auto text-center align-items-center">
             <li class="nav-item">
               <a class="nav-link" href="index.html">Home</a>
             </li>
@@ -134,6 +134,16 @@
                 id="navSignInBtn"
               >
                 Sign In
+              </button>
+            </li>
+            <!-- Light/Dark Theme Toggle Button -->
+            <li class="nav-item ms-lg-3 my-2 my-lg-0">
+              <button
+                id="themeToggleBtn"
+                class="btn btn-outline-warning btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px; padding: 0"
+              >
+                <i class="ri-sun-line" id="themeIcon"></i>
               </button>
             </li>
           </ul>
@@ -185,7 +195,7 @@
             <h3>CSS3</h3>
             <p class="text-muted">
               The style framework. Bring your blueprints to life with beautiful
-              colors, layouts, grids, and custom animations.
+              colors, layouts, and grids.
             </p>
             <a
               href="learn-css.html"
@@ -204,46 +214,12 @@
             <h3>JavaScript</h3>
             <p class="text-muted">
               The engine. Transform static websites into dynamic and highly
-              interactive web applications.
+              interactive applications.
             </p>
             <a
               href="learn-js.html"
               class="btn btn-outline-warning mt-auto text-warning border-warning"
               >Explore JS <i class="bi bi-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-
-        <!-- Bootstrap Card -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card course-card h-100 p-4 text-white">
-            <div class="icon-box bs-icon"><i class="bi bi-bootstrap"></i></div>
-            <h3>Bootstrap 5</h3>
-            <p class="text-muted">
-              The responsive kit. Build ultra-fast, mobile-friendly websites
-              quickly using ready-made CSS components.
-            </p>
-            <a
-              href="learn-bootstrap.html"
-              class="btn btn-outline-info mt-auto text-info border-info"
-              >Explore Bootstrap <i class="bi bi-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-
-        <!-- jQuery Card -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card course-card h-100 p-4 text-white">
-            <div class="icon-box jq-icon"><i class="bi bi-code-slash"></i></div>
-            <h3>jQuery</h3>
-            <p class="text-muted">
-              Write less, do more. Learn how to simplify standard JavaScript DOM
-              manipulations and event handles easily.
-            </p>
-            <a
-              href="learn-jquery.html"
-              class="btn btn-outline-cyan mt-auto text-info border-info"
-              >Explore jQuery <i class="bi bi-arrow-right"></i
             ></a>
           </div>
         </div>
@@ -259,14 +235,9 @@
           <h2 class="display-5 fw-bold text-white">
             Interactive Code Playground
           </h2>
-          <p class="text-muted">
-            Type your HTML and CSS code below to see the live preview instantly!
-          </p>
         </div>
 
         <div class="row g-4">
-          <!-- Left Side: Code Inputs -->
-          <!-- Left Side: Code Inputs with Action Buttons -->
           <div class="col-lg-6">
             <div class="mb-3">
               <div
@@ -294,7 +265,6 @@
                 id="html-code"
                 class="form-control bg-dark text-white font-monospace"
                 rows="6"
-                placeholder="<h1>Hello World</h1>"
               ></textarea>
             </div>
 
@@ -324,12 +294,10 @@
                 id="css-code"
                 class="form-control bg-dark text-white font-monospace"
                 rows="6"
-                placeholder="h1 { color: red; }"
               ></textarea>
             </div>
           </div>
 
-          <!-- Right Side: Live Output Preview -->
           <div class="col-lg-6 d-flex flex-column">
             <label class="form-label text-info fw-bold"
               ><i class="bi bi-eye"></i> Live Preview</label
@@ -345,7 +313,6 @@
       </div>
       <!-- Live Code Playground Section End -->
 
-      <!-- Back Home Button -->
       <div class="text-center mt-5">
         <a href="index.html" class="btn btn-secondary px-4 py-2"
           ><i class="bi bi-arrow-left"></i> Back to Home Page</a
@@ -353,7 +320,6 @@
       </div>
     </div>
 
-    <!-- Corrected Back to Top Button Position (Must be ABOVE script tags) -->
     <button
       id="backToTopBtn"
       class="btn btn-warning position-fixed bottom-0 end-0 m-4 d-none"
@@ -362,38 +328,19 @@
       <i class="ri-arrow-up-line fs-4"></i>
     </button>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript for Live Code Editor & Safe Back to Top -->
     <script>
       function updatePreview() {
-        // Get the values from textareas
         const htmlContent = document.getElementById("html-code").value;
         const cssContent = document.getElementById("css-code").value;
         const previewWindow =
           document.getElementById("preview-window").contentWindow.document;
-
-        // Combine HTML and CSS into a single document structure
-        const finalCode = `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <style>${cssContent}</style>
-            </head>
-            <body>
-              ${htmlContent}
-            </body>
-          </html>
-        `;
-
-        // Write the combined code into the iframe preview window
+        const finalCode = `<!DOCTYPE html><html><head><style>${cssContent}</style></head><body>${htmlContent}</body></html>`;
         previewWindow.open();
         previewWindow.write(finalCode);
         previewWindow.close();
       }
 
-      // Add input event listeners to run the function whenever user types
       document
         .getElementById("html-code")
         .addEventListener("input", updatePreview);
@@ -401,59 +348,51 @@
         .getElementById("css-code")
         .addEventListener("input", updatePreview);
 
-      // Set default initial code on page load
       document.getElementById("html-code").value =
         "<h1>Welcome to World Web!</h1>\n<p>Start editing this code...</p>";
       document.getElementById("css-code").value =
         "body {\n  font-family: sans-serif;\n  text-align: center;\n  padding-top: 30px;\n}\nh1 {\n  color: #06b6d4;\n}";
-
-      // Initialize the preview window with default text
       updatePreview();
-      // --- CLEAR & COPY BUTTONS LOGIC ---
-      // HTML Buttons
+
+      // Clear & Copy Logic
       document.getElementById("clearHtmlBtn").addEventListener("click", () => {
         document.getElementById("html-code").value = "";
         updatePreview();
       });
       document.getElementById("copyHtmlBtn").addEventListener("click", () => {
-        const htmlCode = document.getElementById("html-code");
-        navigator.clipboard.writeText(htmlCode.value);
-        alert("HTML Code copied to clipboard!");
+        navigator.clipboard.writeText(
+          document.getElementById("html-code").value,
+        );
+        alert("HTML Code copied!");
       });
-
-      // CSS Buttons
       document.getElementById("clearCssBtn").addEventListener("click", () => {
         document.getElementById("css-code").value = "";
         updatePreview();
       });
       document.getElementById("copyCssBtn").addEventListener("click", () => {
-        const cssCode = document.getElementById("css-code");
-        navigator.clipboard.writeText(cssCode.value);
-        alert("CSS Code copied to clipboard!");
+        navigator.clipboard.writeText(
+          document.getElementById("css-code").value,
+        );
+        alert("CSS Code copied!");
       });
 
-      // --- BACK TO TOP BUTTON LOGIC FOR EXPLORE PAGE ---
+      // Back to top
       const backToTopBtn = document.getElementById("backToTopBtn");
-
-      // Show the button when the user scrolls down 300px from the top
       window.onscroll = function () {
         if (
           document.body.scrollTop > 300 ||
           document.documentElement.scrollTop > 300
         ) {
-          backToTopBtn.classList.remove("d-none"); // Show button
+          backToTopBtn.classList.remove("d-none");
         } else {
-          backToTopBtn.classList.add("d-none"); // Hide button
+          backToTopBtn.classList.add("d-none");
         }
       };
-
-      // Scroll to the top of the page smoothly when the button is clicked
       backToTopBtn.addEventListener("click", function () {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
+    <!-- We also link main.js here to make theme toggle work on this page -->
+    <script src="js/main.js"></script>
   </body>
 </html>

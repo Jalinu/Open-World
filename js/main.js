@@ -5,37 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
     title.style.opacity = "0";
     title.style.transform = "translateY(-30px)";
     title.style.transition = "opacity 1s ease, transform 1s ease";
-
     setTimeout(() => {
       title.style.opacity = "1";
       title.style.transform = "translateY(0)";
     }, 300);
   }
 
-  const paragraph = document.querySelector(".lead");
-  if (paragraph) {
-    paragraph.style.opacity = "0";
-    paragraph.style.transform = "translateY(30px)";
-    paragraph.style.transition = "opacity 1s ease 0.5s, transform 1s ease 0.5s";
-    setTimeout(() => {
-      paragraph.style.opacity = "1";
-      paragraph.style.transform = "translateY(0)";
-    }, 100);
-  }
-
-  const button = document.querySelector(".btn-primary");
-  if (button) {
-    button.style.opacity = "0";
-    button.style.transform = "scale(0.8)";
-    button.style.transition = "opacity 1s ease 1s, transform 1s ease 1s";
-
-    setTimeout(() => {
-      button.style.opacity = "1";
-      button.style.transform = "scale(1)";
-    }, 100);
-  }
-
-  // --- Sign In Form & Welcome Message Logic ---
+  // --- Sign In Form Logic ---
   const signInForm = document.getElementById("signInForm");
   const welcomeArea = document.getElementById("welcomeArea");
   const modalTitle = document.getElementById("modalTitle");
@@ -47,24 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
     signInForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const username = usernameInput.value;
-
       signInForm.classList.add("d-none");
       if (modalTitle) modalTitle.classList.add("d-none");
-
       welcomeHeading.textContent = `Welcome to World Web, ${username}!`;
       welcomeArea.classList.remove("d-none");
 
       if (navSignInBtn) {
         navSignInBtn.className = "nav-link text-white fw-bold d-inline-block";
         navSignInBtn.innerHTML = `<i class="ri-user-line"></i> Hi, ${username}`;
-        navSignInBtn.style.cursor = "default";
         navSignInBtn.removeAttribute("data-bs-toggle");
         navSignInBtn.removeAttribute("data-bs-target");
       }
     });
   }
 
-  // --- QUIZ GAME CODE WITH SAFETY CHECKS ---
+  // --- QUIZ GAME CODE ---
   const quizData = [
     {
       question: "What does HTML stand for?",
@@ -90,8 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentQuestion = 0;
   let score = 0;
-
-  // Check if quiz elements exist on the current page before running quiz logic
   const qElement = document.getElementById("quiz-question");
   const optionsContainer = document.getElementById("quiz-options");
   const nextBtn = document.getElementById("next-quiz-btn");
@@ -101,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
       optionsContainer.innerHTML = "";
       nextBtn.classList.add("d-none");
       qElement.innerText = quizData[currentQuestion].question;
-
       quizData[currentQuestion].options.forEach((option, index) => {
         const btn = document.createElement("button");
         btn.innerText = option;
@@ -120,11 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function checkAnswer(selectedIndex, clickedBtn) {
       const correctIndex = quizData[currentQuestion].correct;
       const allButtons = optionsContainer.children;
-
       for (let btn of allButtons) {
         btn.disabled = true;
       }
-
       if (selectedIndex === correctIndex) {
         clickedBtn.classList.replace("btn-outline-primary", "btn-success");
         score++;
@@ -146,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
         qElement.classList.add("d-none");
         optionsContainer.classList.add("d-none");
         nextBtn.classList.add("d-none");
-
         const resultDiv = document.getElementById("quiz-result");
         if (resultDiv) resultDiv.classList.remove("d-none");
         document.getElementById("quiz-score").innerText =
@@ -154,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Global restart function
     window.restartQuiz = function () {
       currentQuestion = 0;
       score = 0;
@@ -164,11 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (resultDiv) resultDiv.classList.add("d-none");
       loadQuiz();
     };
-
     loadQuiz();
   }
 
-  // --- BACK TO TOP BUTTON LOGIC FOR HOME PAGE ---
+  // --- BACK TO TOP BUTTON LOGIC ---
   const backToTopBtn = document.getElementById("backToTopBtn");
   if (backToTopBtn) {
     window.onscroll = function () {
@@ -181,12 +146,36 @@ document.addEventListener("DOMContentLoaded", () => {
         backToTopBtn.classList.add("d-none");
       }
     };
-
     backToTopBtn.addEventListener("click", function () {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
+  }
+
+  // --- DARK / LIGHT MODE LOGIC ---
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  const themeIcon = document.getElementById("themeIcon");
+  const htmlTag = document.documentElement;
+
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  htmlTag.setAttribute("data-bs-theme", savedTheme);
+  updateToggleIcon(savedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const currentTheme = htmlTag.getAttribute("data-bs-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      htmlTag.setAttribute("data-bs-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      updateToggleIcon(newTheme);
+    });
+  }
+
+  function updateToggleIcon(theme) {
+    if (!themeIcon) return;
+    if (theme === "light") {
+      themeIcon.className = "ri-moon-line";
+    } else {
+      themeIcon.className = "ri-sun-line";
+    }
   }
 });
